@@ -548,7 +548,7 @@ function renderPedidos(){
             <div class="pedido ${pedido.completado ? 'completado' : ''}">
                 <div>
                     <strong>#${pedido.numero}</strong><br>
-                    ${pedido.bebida}<br>
+                   ${traducirBebida(pedido.bebida)}<br>
                     ${detalles}<br>
                     <small>${pedido.fecha}</small>
                 </div>
