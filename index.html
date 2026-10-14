@@ -332,14 +332,15 @@ function renderPedidos() {
         lista.innerHTML += `
             <div class="pedido ${pedido.completado ? 'completado' : ''}">
                 <div>
-                    <strong style="font-size:20px; color:#2e7d32;">
-                        Pedido #${pedido.numero}
-                    </strong>
-                    <br>
-                    <strong>${traducirBebida(pedido.bebida)}</strong>
-                    <br>
-                   
-                    <small>${pedido.fecha}</small>
+                   <strong style="font-size:20px; color:#2e7d32;">
+    Pedido #${pedido.numero}
+</strong>
+<br>
+<strong>
+    ${traducirBebida(pedido.bebida)}
+</strong>
+<br>
+<small>${pedido.fecha}</small>
                 </div>
 
                 <input
