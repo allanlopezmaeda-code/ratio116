@@ -231,12 +231,44 @@ function mostrarMensaje(texto, color = "#2e7d32", numeroPedido = null) {
 function realizarPedido() {
 
     if (!bebidaSeleccionada) {
+
         mostrarMensaje(
             "Seleccione una bebida",
             "#c62828"
         );
+
         return;
     }
+
+    const numeroPedido = contador++;
+
+    pedidos.push({
+
+        numero: numeroPedido,
+        fecha: new Date().toLocaleString(),
+        bebida: bebidaSeleccionada,
+        detalles: {},
+        completado: false
+
+    });
+
+    renderPedidos();
+
+    bebidaSeleccionada = "";
+
+    document
+        .querySelectorAll(".bebida-btn")
+        .forEach(btn =>
+            btn.classList.remove("bebida-seleccionada")
+        );
+
+    mostrarMensaje(
+        "",
+        "#2e7d32",
+        numeroPedido
+    );
+
+}
 
     const numeroPedido = contador++;
 
