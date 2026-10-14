@@ -328,7 +328,6 @@ function renderPedidos() {
     lista.innerHTML = "";
 
     pedidos.forEach((pedido, index) => {
-        const detalles = Object.values(pedido.detalles).join(" | ");
 
         lista.innerHTML += `
             <div class="pedido ${pedido.completado ? 'completado' : ''}">
@@ -339,8 +338,7 @@ function renderPedidos() {
                     <br>
                     <strong>${traducirBebida(pedido.bebida)}</strong>
                     <br>
-                    ${detalles}
-                    <br>
+                   
                     <small>${pedido.fecha}</small>
                 </div>
 
