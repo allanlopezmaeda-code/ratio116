@@ -568,7 +568,23 @@ function togglePedido(index){
 
     renderPedidos();
 }
+function traducirBebida(codigo){
 
+    const nombres = {
+        americano: "Café Americano",
+        espresso: "Espresso",
+        cappuccino: "Cappuccino",
+        latte: "Latte",
+        mocha: "Mocha",
+        macchiato: "Macchiato",
+        cafefrio: "Café Frío",
+        te: "Té",
+        chocolate: "Chocolate Caliente"
+    };
+
+    return nombres[codigo] || codigo;
+
+}
 function exportarCSV(){
 
     let csv =
