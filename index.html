@@ -486,17 +486,17 @@ document
 }
 
 function traducirBebida(codigo) {
+
     const nombres = {
         americano: "Café Americano",
-        espresso: "Espresso",
-        cappuccino: "Cappuccino",
+        capuchino: "Capuchino",
         latte: "Latte",
-        mocha: "Mocha",
-        macchiato: "Macchiato",
-        cafefrio: "Café Frío",
-        te: "Té",
+        matcha: "Matcha",
         chocolate: "Chocolate Caliente"
     };
+
+    return nombres[codigo] || codigo;
+}
 
     return nombres[codigo] || codigo;
 }
