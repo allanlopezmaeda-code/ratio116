@@ -1,127 +1,98 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Sistema de Pedidos Cafetería</title>
 
 <style>
-body{
+body {
     font-family: Arial, sans-serif;
-    margin:20px;
-    background:#f4f4f4;
+    margin: 20px;
+    background: #f4f4f4;
 }
 
-.panel{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:20px;
-    box-shadow:0 2px 5px rgba(0,0,0,.2);
+.panel {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
 }
 
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-button{
-    padding:10px 15px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    margin:5px;
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
 }
 
-.btn-primary{
-    background:#2e7d32;
-    color:white;
+.btn-primary {
+    background: #2e7d32;
+    color: white;
 }
 
-.btn-export{
-    background:#1565c0;
-    color:white;
+.btn-export {
+    background: #1565c0;
+    color: white;
 }
 
-.btn-danger{
-    background:#c62828;
-    color:white;
+.btn-danger {
+    background: #c62828;
+    color: white;
 }
 
-.fullscreen-btn{
-    background:#444;
-    color:white;
+.fullscreen-btn {
+    background: #444;
+    color: white;
 }
 
-select,input{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    margin-bottom:15px;
-    border-radius:5px;
-    border:1px solid #ccc;
-    box-sizing:border-box;
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
-.pedido{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid #ddd;
-    padding:10px;
+.pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
 }
 
-.completado{
-    color:gray;
-    text-decoration:line-through;
-}
-
-.notificacion{
-    position:fixed;
-    top:20px;
-    right:20px;
-    background:#2e7d32;
-    color:white;
-    padding:15px 20px;
-    border-radius:8px;
-    font-weight:bold;
-    box-shadow:0 4px 10px rgba(0,0,0,.3);
-    z-index:99999;
-    animation:fadein .3s;
-}
-
-@keyframes fadein{
-    from{
-        opacity:0;
-        transform:translateY(-10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.completado {
+    color: gray;
+    text-decoration: line-through;
 }
 </style>
-
 </head>
+
 <body>
 
 <div id="pedidoPanel" class="panel">
-
     <div class="header">
         <h2>Nuevo Pedido</h2>
         <button class="fullscreen-btn"
-                onclick="pantallaCompleta('pedidoPanel')">
-            ⛶
-        </button>
+            onclick="pantallaCompleta('pedidoPanel')">⛶</button>
     </div>
 
     <label>Bebida</label>
 
     <select id="tipoProducto" onchange="mostrarOpciones()">
         <option value="">Seleccione una bebida</option>
-
         <option value="americano">Café Americano</option>
         <option value="espresso">Espresso</option>
         <option value="cappuccino">Cappuccino</option>
@@ -135,51 +106,38 @@ select,input{
 
     <div id="opciones"></div>
 
-    <button class="btn-primary"
-            onclick="realizarPedido()">
+    <button class="btn-primary" onclick="realizarPedido()">
         REALIZAR PEDIDO
     </button>
-
 </div>
 
 <div id="colaPanel" class="panel">
-
     <div class="header">
         <h2>Cola de Pedidos</h2>
         <button class="fullscreen-btn"
-                onclick="pantallaCompleta('colaPanel')">
-            ⛶
-        </button>
+            onclick="pantallaCompleta('colaPanel')">⛶</button>
     </div>
 
     <div id="listaPedidos"></div>
 
     <br>
 
-    <button class="btn-export"
-            onclick="exportarCSV()">
+    <button class="btn-export" onclick="exportarCSV()">
         Exportar a Excel
     </button>
 
-    <button class="btn-danger"
-            onclick="borrarPedidos()">
+    <button class="btn-danger" onclick="borrarPedidos()">
         Borrar Registros
     </button>
-
 </div>
 
 <script>
-
 let pedidos = [];
 let contador = 1;
 
-function mostrarOpciones(){
-
-    const bebida =
-        document.getElementById("tipoProducto").value;
-
-    const opciones =
-        document.getElementById("opciones");
+function mostrarOpciones() {
+    const bebida = document.getElementById("tipoProducto").value;
+    const opciones = document.getElementById("opciones");
 
     const consumo = `
         <label>Consumo</label>
@@ -189,8 +147,7 @@ function mostrarOpciones(){
         </select>
     `;
 
-    switch(bebida){
-
+    switch (bebida) {
         case "americano":
             opciones.innerHTML = `
                 <label>Tamaño</label>
@@ -199,7 +156,6 @@ function mostrarOpciones(){
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 <label>Azúcar</label>
                 <select id="azucar">
                     <option>Sin azúcar</option>
@@ -207,10 +163,9 @@ function mostrarOpciones(){
                     <option>2</option>
                     <option>3</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "espresso":
             opciones.innerHTML = `
@@ -219,17 +174,15 @@ function mostrarOpciones(){
                     <option>Sencillo</option>
                     <option>Doble</option>
                 </select>
-
                 <label>Azúcar</label>
                 <select id="azucar">
                     <option>Sin azúcar</option>
                     <option>1</option>
                     <option>2</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "cappuccino":
             opciones.innerHTML = `
@@ -239,7 +192,6 @@ function mostrarOpciones(){
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 <label>Leche</label>
                 <select id="leche">
                     <option>Entera</option>
@@ -248,22 +200,19 @@ function mostrarOpciones(){
                     <option>Almendra</option>
                     <option>Avena</option>
                 </select>
-
                 <label>Extra Shot</label>
                 <select id="extraShot">
                     <option>No</option>
                     <option>Sí</option>
                 </select>
-
                 <label>Canela</label>
                 <select id="canela">
                     <option>Sí</option>
                     <option>No</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "latte":
             opciones.innerHTML = `
@@ -273,7 +222,6 @@ function mostrarOpciones(){
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 <label>Leche</label>
                 <select id="leche">
                     <option>Entera</option>
@@ -282,7 +230,6 @@ function mostrarOpciones(){
                     <option>Almendra</option>
                     <option>Avena</option>
                 </select>
-
                 <label>Sabor</label>
                 <select id="sabor">
                     <option>Natural</option>
@@ -291,16 +238,14 @@ function mostrarOpciones(){
                     <option>Avellana</option>
                     <option>Mocha</option>
                 </select>
-
                 <label>Extra Shot</label>
                 <select id="extraShot">
                     <option>No</option>
                     <option>Sí</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "mocha":
             opciones.innerHTML = `
@@ -310,7 +255,6 @@ function mostrarOpciones(){
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 <label>Leche</label>
                 <select id="leche">
                     <option>Entera</option>
@@ -319,16 +263,14 @@ function mostrarOpciones(){
                     <option>Almendra</option>
                     <option>Avena</option>
                 </select>
-
                 <label>Crema Batida</label>
                 <select id="crema">
                     <option>Sí</option>
                     <option>No</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "macchiato":
             opciones.innerHTML = `
@@ -338,17 +280,15 @@ function mostrarOpciones(){
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 <label>Leche</label>
                 <select id="leche">
                     <option>Entera</option>
                     <option>Descremada</option>
                     <option>Deslactosada</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "cafefrio":
             opciones.innerHTML = `
@@ -359,17 +299,15 @@ function mostrarOpciones(){
                     <option>Iced Mocha</option>
                     <option>Frappé</option>
                 </select>
-
                 <label>Tamaño</label>
                 <select id="tamano">
                     <option>Chico</option>
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "te":
             opciones.innerHTML = `
@@ -381,17 +319,15 @@ function mostrarOpciones(){
                     <option>Chai</option>
                     <option>Frutos rojos</option>
                 </select>
-
                 <label>Tamaño</label>
                 <select id="tamano">
                     <option>Chico</option>
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         case "chocolate":
             opciones.innerHTML = `
@@ -401,51 +337,88 @@ function mostrarOpciones(){
                     <option>Mediano</option>
                     <option>Grande</option>
                 </select>
-
                 <label>Leche</label>
                 <select id="leche">
                     <option>Entera</option>
                     <option>Descremada</option>
                     <option>Deslactosada</option>
                 </select>
-
                 <label>Crema Batida</label>
                 <select id="crema">
                     <option>Sí</option>
                     <option>No</option>
                 </select>
-
                 ${consumo}
             `;
-        break;
+            break;
 
         default:
             opciones.innerHTML = "";
     }
 }
 
-function realizarPedido(){
+function mostrarMensaje(texto, color = "#2e7d32", numeroPedido = null) {
+    const mensaje = document.createElement("div");
 
-    const bebida =
-        document.getElementById("tipoProducto").value;
+    mensaje.style.position = "fixed";
+    mensaje.style.top = "20px";
+    mensaje.style.right = "20px";
+    mensaje.style.background = color;
+    mensaje.style.color = "white";
+    mensaje.style.padding = "20px";
+    mensaje.style.borderRadius = "10px";
+    mensaje.style.boxShadow = "0 4px 12px rgba(0,0,0,.3)";
+    mensaje.style.zIndex = "999999";
+    mensaje.style.fontSize = "22px";
+    mensaje.style.fontWeight = "bold";
+    mensaje.style.textAlign = "center";
+    mensaje.style.minWidth = "220px";
+    mensaje.style.maxWidth = "calc(100vw - 80px)";
 
-    if(!bebida){
+    if (numeroPedido !== null) {
+        mensaje.innerHTML = `
+            ✅ Pedido registrado
+            <br>
+            <span style="display:block; font-size:40px; margin-top:8px;">
+                #${numeroPedido}
+            </span>
+            <span style="display:block; font-size:15px; margin-top:5px;">
+                Guarda tu número de pedido
+            </span>
+        `;
+    } else {
+        mensaje.textContent = texto;
+    }
+
+    const contenedor = document.fullscreenElement || document.body;
+    contenedor.appendChild(mensaje);
+
+    setTimeout(() => {
+        mensaje.remove();
+    }, numeroPedido !== null ? 5000 : 2500);
+}
+
+function realizarPedido() {
+    const bebida = document.getElementById("tipoProducto").value;
+
+    if (!bebida) {
+        mostrarMensaje("Seleccione una bebida", "#c62828");
         return;
     }
 
+    const numeroPedido = contador++;
     const detalles = {};
 
-    document.querySelectorAll("#opciones select")
-    .forEach(campo=>{
-        detalles[campo.id]=campo.value;
+    document.querySelectorAll("#opciones select").forEach(campo => {
+        detalles[campo.id] = campo.value;
     });
 
     pedidos.push({
-        numero: contador++,
+        numero: numeroPedido,
         fecha: new Date().toLocaleString(),
         bebida: bebida,
         detalles: detalles,
-        completado:false
+        completado: false
     });
 
     renderPedidos();
@@ -453,19 +426,8 @@ function realizarPedido(){
     document.getElementById("tipoProducto").value = "";
     document.getElementById("opciones").innerHTML = "";
 
-    const mensaje = document.createElement("div");
-
-    mensaje.className = "notificacion";
-    mensaje.innerHTML = "✅ Pedido registrado correctamente";
-
-    document.body.appendChild(mensaje);
-
-    setTimeout(()=>{
-        mensaje.remove();
-    },2000);
-
+    mostrarMensaje("", "#2e7d32", numeroPedido);
 }
-
 
 function traducirBebida(codigo) {
     const nombres = {
@@ -483,25 +445,25 @@ function traducirBebida(codigo) {
     return nombres[codigo] || codigo;
 }
 
-    
-function renderPedidos(){
-
-    const lista =
-        document.getElementById("listaPedidos");
+function renderPedidos() {
+    const lista = document.getElementById("listaPedidos");
 
     lista.innerHTML = "";
 
-    pedidos.forEach((pedido,index)=>{
-
-        const detalles =
-            Object.values(pedido.detalles).join(" | ");
+    pedidos.forEach((pedido, index) => {
+        const detalles = Object.values(pedido.detalles).join(" | ");
 
         lista.innerHTML += `
             <div class="pedido ${pedido.completado ? 'completado' : ''}">
                 <div>
-                    <strong>#${pedido.numero}</strong><br>
-                    ${pedido.bebida}<br>
-                    ${detalles}<br>
+                    <strong style="font-size:20px; color:#2e7d32;">
+                        Pedido #${pedido.numero}
+                    </strong>
+                    <br>
+                    <strong>${traducirBebida(pedido.bebida)}</strong>
+                    <br>
+                    ${detalles}
+                    <br>
                     <small>${pedido.fecha}</small>
                 </div>
 
@@ -514,65 +476,54 @@ function renderPedidos(){
     });
 }
 
-function togglePedido(index){
-    pedidos[index].completado =
-    !pedidos[index].completado;
-
+function togglePedido(index) {
+    pedidos[index].completado = !pedidos[index].completado;
     renderPedidos();
 }
 
-function exportarCSV(){
+function exportarCSV() {
+    let csv = "Pedido,Fecha,Bebida,Detalles,Estado\n";
 
-    let csv =
-"Pedido,Fecha,Bebida,Detalles,Estado\n";
+    pedidos.forEach(p => {
+        const detalles = Object.values(p.detalles).join(" | ");
 
-    pedidos.forEach(p=>{
-
-        const detalles =
-            Object.values(p.detalles).join(" | ");
-
-        csv += `"${p.numero}","${p.fecha}","${p.bebida}","${detalles}","${p.completado ? "Completado" : "Pendiente"}"\n`;
+        csv += `"${p.numero}","${p.fecha}","${traducirBebida(p.bebida)}","${detalles}","${p.completado ? "Completado" : "Pendiente"}"\n`;
     });
 
-    const blob =
-        new Blob([csv],{
-            type:"text/csv;charset=utf-8;"
-        });
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
 
-    const url =
-        URL.createObjectURL(blob);
-
-    const a =
-        document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
 
     a.href = url;
     a.download = "pedidos.csv";
+
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
 }
 
-function borrarPedidos(){
-
-    if(confirm("¿Desea eliminar todos los registros?")){
-
+function borrarPedidos() {
+    if (confirm("¿Desea eliminar todos los registros?")) {
         pedidos = [];
         contador = 1;
-
         renderPedidos();
     }
-
 }
 
-function pantallaCompleta(id){
+function pantallaCompleta(id) {
+    const elemento = document.getElementById(id);
 
-    const elemento =
-        document.getElementById(id);
-
-    if(elemento.requestFullscreen){
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else if (elemento.requestFullscreen) {
         elemento.requestFullscreen();
     }
-
 }
-
 </script>
 
 </body>
