@@ -77,6 +77,31 @@ select,input{
     color:gray;
     text-decoration:line-through;
 }
+
+.notificacion{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#2e7d32;
+    color:white;
+    padding:15px 20px;
+    border-radius:8px;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:99999;
+    animation:fadein .3s;
+}
+
+@keyframes fadein{
+    from{
+        opacity:0;
+        transform:translateY(-10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 </style>
 
 </head>
@@ -86,13 +111,17 @@ select,input{
 
     <div class="header">
         <h2>Nuevo Pedido</h2>
-        <button class="fullscreen-btn" onclick="pantallaCompleta('pedidoPanel')">⛶</button>
+        <button class="fullscreen-btn"
+                onclick="pantallaCompleta('pedidoPanel')">
+            ⛶
+        </button>
     </div>
 
     <label>Bebida</label>
 
     <select id="tipoProducto" onchange="mostrarOpciones()">
         <option value="">Seleccione una bebida</option>
+
         <option value="americano">Café Americano</option>
         <option value="espresso">Espresso</option>
         <option value="cappuccino">Cappuccino</option>
@@ -106,7 +135,8 @@ select,input{
 
     <div id="opciones"></div>
 
-    <button class="btn-primary" onclick="realizarPedido()">
+    <button class="btn-primary"
+            onclick="realizarPedido()">
         REALIZAR PEDIDO
     </button>
 
@@ -116,18 +146,23 @@ select,input{
 
     <div class="header">
         <h2>Cola de Pedidos</h2>
-        <button class="fullscreen-btn" onclick="pantallaCompleta('colaPanel')">⛶</button>
+        <button class="fullscreen-btn"
+                onclick="pantallaCompleta('colaPanel')">
+            ⛶
+        </button>
     </div>
 
     <div id="listaPedidos"></div>
 
     <br>
 
-    <button class="btn-export" onclick="exportarCSV()">
+    <button class="btn-export"
+            onclick="exportarCSV()">
         Exportar a Excel
     </button>
 
-    <button class="btn-danger" onclick="borrarPedidos()">
+    <button class="btn-danger"
+            onclick="borrarPedidos()">
         Borrar Registros
     </button>
 
@@ -140,8 +175,11 @@ let contador = 1;
 
 function mostrarOpciones(){
 
-    const bebida = document.getElementById("tipoProducto").value;
-    const opciones = document.getElementById("opciones");
+    const bebida =
+        document.getElementById("tipoProducto").value;
+
+    const opciones =
+        document.getElementById("opciones");
 
     const consumo = `
         <label>Consumo</label>
@@ -388,17 +426,18 @@ function mostrarOpciones(){
 
 function realizarPedido(){
 
-    const bebida = document.getElementById("tipoProducto").value;
+    const bebida =
+        document.getElementById("tipoProducto").value;
 
     if(!bebida){
-        alert("Seleccione una bebida");
         return;
     }
 
     const detalles = {};
 
-    document.querySelectorAll("#opciones select").forEach(campo=>{
-        detalles[campo.id] = campo.value;
+    document.querySelectorAll("#opciones select")
+    .forEach(campo=>{
+        detalles[campo.id]=campo.value;
     });
 
     pedidos.push({
@@ -411,77 +450,95 @@ function realizarPedido(){
 
     renderPedidos();
 
-    alert("Pedido registrado correctamente");
+    document.getElementById("tipoProducto").value = "";
+    document.getElementById("opciones").innerHTML = "";
+
+    const mensaje = document.createElement("div");
+
+    mensaje.className = "notificacion";
+    mensaje.innerHTML = "✅ Pedido registrado correctamente";
+
+    document.body.appendChild(mensaje);
+
+    setTimeout(()=>{
+        mensaje.remove();
+    },2000);
+
 }
 
 function renderPedidos(){
 
-    const lista = document.getElementById("listaPedidos");
+    const lista =
+        document.getElementById("listaPedidos");
 
     lista.innerHTML = "";
 
     pedidos.forEach((pedido,index)=>{
 
-        const detalles = Object.values(pedido.detalles).join(" | ");
+        const detalles =
+            Object.values(pedido.detalles).join(" | ");
 
         lista.innerHTML += `
-        <div class="pedido ${pedido.completado ? 'completado' : ''}">
-            <div>
-                <strong>#${pedido.numero}</strong><br>
-                ${pedido.bebida}<br>
-                ${detalles}<br>
-                <small>${pedido.fecha}</small>
-            </div>
+            <div class="pedido ${pedido.completado ? 'completado' : ''}">
+                <div>
+                    <strong>#${pedido.numero}</strong><br>
+                    ${pedido.bebida}<br>
+                    ${detalles}<br>
+                    <small>${pedido.fecha}</small>
+                </div>
 
-            <input
-                type="checkbox"
-                ${pedido.completado ? 'checked' : ''}
-                onchange="togglePedido(${index})">
-        </div>
+                <input
+                    type="checkbox"
+                    ${pedido.completado ? 'checked' : ''}
+                    onchange="togglePedido(${index})">
+            </div>
         `;
     });
 }
 
 function togglePedido(index){
-    pedidos[index].completado = !pedidos[index].completado;
+    pedidos[index].completado =
+    !pedidos[index].completado;
+
     renderPedidos();
 }
 
 function exportarCSV(){
 
-    let csv = "Pedido,Fecha,Bebida,Detalles,Estado\n";
+    let csv =
+"Pedido,Fecha,Bebida,Detalles,Estado\n";
 
     pedidos.forEach(p=>{
 
-        const detalles = Object.values(p.detalles).join(" | ");
+        const detalles =
+            Object.values(p.detalles).join(" | ");
 
         csv += `"${p.numero}","${p.fecha}","${p.bebida}","${detalles}","${p.completado ? "Completado" : "Pendiente"}"\n`;
-
     });
 
-    const blob = new Blob([csv],{
-        type:"text/csv;charset=utf-8;"
-    });
+    const blob =
+        new Blob([csv],{
+            type:"text/csv;charset=utf-8;"
+        });
 
-    const url = URL.createObjectURL(blob);
+    const url =
+        URL.createObjectURL(blob);
 
-    const a = document.createElement("a");
+    const a =
+        document.createElement("a");
 
     a.href = url;
     a.download = "pedidos.csv";
-
-    document.body.appendChild(a);
-
     a.click();
-
-    document.body.removeChild(a);
 }
 
 function borrarPedidos(){
 
     if(confirm("¿Desea eliminar todos los registros?")){
+
         pedidos = [];
         contador = 1;
+
         renderPedidos();
     }
 
@@ -489,7 +546,8 @@ function borrarPedidos(){
 
 function pantallaCompleta(id){
 
-    const elemento = document.getElementById(id);
+    const elemento =
+        document.getElementById(id);
 
     if(elemento.requestFullscreen){
         elemento.requestFullscreen();
