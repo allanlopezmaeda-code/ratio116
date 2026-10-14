@@ -474,8 +474,13 @@ function realizarPedido() {
 
     renderPedidos();
 
-    document.getElementById("tipoProducto").value = "";
-    document.getElementById("opciones").innerHTML = "";
+  bebidaSeleccionada = "";
+
+document
+.querySelectorAll(".bebida-btn")
+.forEach(btn =>
+    btn.classList.remove("bebida-seleccionada")
+);
 
     mostrarMensaje("", "#2e7d32", numeroPedido);
 }
