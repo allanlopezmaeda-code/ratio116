@@ -7,11 +7,10 @@
 <title>Sistema de Pedidos Cafetería</title>
 
 <style>
-
 body{
     font-family: Arial, sans-serif;
-    background:#f4f4f4;
     margin:20px;
+    background:#f4f4f4;
 }
 
 .panel{
@@ -33,15 +32,11 @@ button{
     border:none;
     border-radius:5px;
     cursor:pointer;
+    margin:5px;
 }
 
 .btn-primary{
     background:#2e7d32;
-    color:white;
-}
-
-.btn-danger{
-    background:#c62828;
     color:white;
 }
 
@@ -50,17 +45,23 @@ button{
     color:white;
 }
 
+.btn-danger{
+    background:#c62828;
+    color:white;
+}
+
 .fullscreen-btn{
     background:#444;
     color:white;
 }
 
-input, select{
+select,input{
     width:100%;
     padding:10px;
+    margin-top:5px;
     margin-bottom:15px;
-    border:1px solid #ccc;
     border-radius:5px;
+    border:1px solid #ccc;
     box-sizing:border-box;
 }
 
@@ -68,34 +69,30 @@ input, select{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:10px;
     border-bottom:1px solid #ddd;
+    padding:10px;
 }
 
 .completado{
-    text-decoration:line-through;
     color:gray;
+    text-decoration:line-through;
 }
-
 </style>
-</head>
 
+</head>
 <body>
 
 <div id="pedidoPanel" class="panel">
 
     <div class="header">
         <h2>Nuevo Pedido</h2>
-        <button class="fullscreen-btn"
-            onclick="pantallaCompleta('pedidoPanel')">⛶</button>
+        <button class="fullscreen-btn" onclick="pantallaCompleta('pedidoPanel')">⛶</button>
     </div>
 
-    <label>Seleccione una bebida</label>
+    <label>Bebida</label>
 
     <select id="tipoProducto" onchange="mostrarOpciones()">
-
-        <option value="">Seleccione</option>
-
+        <option value="">Seleccione una bebida</option>
         <option value="americano">Café Americano</option>
         <option value="espresso">Espresso</option>
         <option value="cappuccino">Cappuccino</option>
@@ -105,17 +102,12 @@ input, select{
         <option value="cafefrio">Café Frío</option>
         <option value="te">Té</option>
         <option value="chocolate">Chocolate Caliente</option>
-
     </select>
 
     <div id="opciones"></div>
 
-    <button
-        class="btn-primary"
-        onclick="realizarPedido()">
-
+    <button class="btn-primary" onclick="realizarPedido()">
         REALIZAR PEDIDO
-
     </button>
 
 </div>
@@ -124,34 +116,19 @@ input, select{
 
     <div class="header">
         <h2>Cola de Pedidos</h2>
-
-        <button
-            class="fullscreen-btn"
-            onclick="pantallaCompleta('colaPanel')">
-
-            ⛶
-
-        </button>
+        <button class="fullscreen-btn" onclick="pantallaCompleta('colaPanel')">⛶</button>
     </div>
 
     <div id="listaPedidos"></div>
 
     <br>
 
-    <button
-        class="btn-export"
-        onclick="exportarCSV()">
-
+    <button class="btn-export" onclick="exportarCSV()">
         Exportar a Excel
-
     </button>
 
-    <button
-        class="btn-danger"
-        onclick="borrarPedidos()">
-
+    <button class="btn-danger" onclick="borrarPedidos()">
         Borrar Registros
-
     </button>
 
 </div>
@@ -163,11 +140,8 @@ let contador = 1;
 
 function mostrarOpciones(){
 
-    const bebida =
-        document.getElementById("tipoProducto").value;
-
-    const opciones =
-        document.getElementById("opciones");
+    const bebida = document.getElementById("tipoProducto").value;
+    const opciones = document.getElementById("opciones");
 
     const consumo = `
         <label>Consumo</label>
@@ -180,7 +154,6 @@ function mostrarOpciones(){
     switch(bebida){
 
         case "americano":
-
             opciones.innerHTML = `
                 <label>Tamaño</label>
                 <select id="tamano">
@@ -202,7 +175,6 @@ function mostrarOpciones(){
         break;
 
         case "espresso":
-
             opciones.innerHTML = `
                 <label>Tipo</label>
                 <select id="tipo">
@@ -222,7 +194,6 @@ function mostrarOpciones(){
         break;
 
         case "cappuccino":
-
             opciones.innerHTML = `
                 <label>Tamaño</label>
                 <select id="tamano">
@@ -257,7 +228,6 @@ function mostrarOpciones(){
         break;
 
         case "latte":
-
             opciones.innerHTML = `
                 <label>Tamaño</label>
                 <select id="tamano">
@@ -295,7 +265,6 @@ function mostrarOpciones(){
         break;
 
         case "mocha":
-
             opciones.innerHTML = `
                 <label>Tamaño</label>
                 <select id="tamano">
@@ -324,7 +293,6 @@ function mostrarOpciones(){
         break;
 
         case "macchiato":
-
             opciones.innerHTML = `
                 <label>Tamaño</label>
                 <select id="tamano">
@@ -345,7 +313,6 @@ function mostrarOpciones(){
         break;
 
         case "cafefrio":
-
             opciones.innerHTML = `
                 <label>Tipo</label>
                 <select id="tipo">
@@ -367,7 +334,6 @@ function mostrarOpciones(){
         break;
 
         case "te":
-
             opciones.innerHTML = `
                 <label>Tipo</label>
                 <select id="tipo">
@@ -390,7 +356,6 @@ function mostrarOpciones(){
         break;
 
         case "chocolate":
-
             opciones.innerHTML = `
                 <label>Tamaño</label>
                 <select id="tamano">
@@ -423,104 +388,84 @@ function mostrarOpciones(){
 
 function realizarPedido(){
 
-    const bebida =
-        document.getElementById("tipoProducto").value;
+    const bebida = document.getElementById("tipoProducto").value;
 
     if(!bebida){
         alert("Seleccione una bebida");
         return;
     }
 
-    const numeroPedido = contador++;
-
     const detalles = {};
 
-    document.querySelectorAll("#opciones select")
-        .forEach(campo=>{
-            detalles[campo.id]=campo.value;
-        });
+    document.querySelectorAll("#opciones select").forEach(campo=>{
+        detalles[campo.id] = campo.value;
+    });
 
-    const pedido = {
-        numero: numeroPedido,
+    pedidos.push({
+        numero: contador++,
         fecha: new Date().toLocaleString(),
         bebida: bebida,
         detalles: detalles,
         completado:false
-    };
-
-    pedidos.push(pedido);
+    });
 
     renderPedidos();
 
-    alert("Pedido #" + numeroPedido + " registrado");
+    alert("Pedido registrado correctamente");
 }
 
 function renderPedidos(){
 
-    const lista =
-        document.getElementById("listaPedidos");
+    const lista = document.getElementById("listaPedidos");
 
     lista.innerHTML = "";
 
     pedidos.forEach((pedido,index)=>{
 
-        const detalleTexto =
-            Object.values(pedido.detalles).join(" | ");
+        const detalles = Object.values(pedido.detalles).join(" | ");
 
         lista.innerHTML += `
-            <div class="pedido ${pedido.completado ? 'completado':''}">
-
-                <div>
-                    <strong>#${pedido.numero}</strong><br>
-                    ${pedido.bebida}<br>
-                    ${detalleTexto}<br>
-                    <small>${pedido.fecha}</small>
-                </div>
-
-                <input
-                    type="checkbox"
-                    ${pedido.completado ? 'checked':''}
-                    onchange="togglePedido(${index})">
-
+        <div class="pedido ${pedido.completado ? 'completado' : ''}">
+            <div>
+                <strong>#${pedido.numero}</strong><br>
+                ${pedido.bebida}<br>
+                ${detalles}<br>
+                <small>${pedido.fecha}</small>
             </div>
+
+            <input
+                type="checkbox"
+                ${pedido.completado ? 'checked' : ''}
+                onchange="togglePedido(${index})">
+        </div>
         `;
     });
-
 }
 
 function togglePedido(index){
-
-    pedidos[index].completado =
-        !pedidos[index].completado;
-
+    pedidos[index].completado = !pedidos[index].completado;
     renderPedidos();
-
 }
 
 function exportarCSV(){
 
-    let csv =
-    "Pedido,Fecha,Bebida,Detalles,Estado\n";
+    let csv = "Pedido,Fecha,Bebida,Detalles,Estado\n";
 
     pedidos.forEach(p=>{
 
-        const detalles =
-        Object.values(p.detalles).join(" | ");
+        const detalles = Object.values(p.detalles).join(" | ");
 
-        csv += `"${p.numero}","${p.fecha}","${p.bebida}","${detalles}","${p.completado ? "Completado":"Pendiente"}"\n`;
+        csv += `"${p.numero}","${p.fecha}","${p.bebida}","${detalles}","${p.completado ? "Completado" : "Pendiente"}"\n`;
 
     });
 
-    const blob =
-        new Blob([csv],{
+    const blob = new Blob([csv],{
         type:"text/csv;charset=utf-8;"
     });
 
-    const url =
-        URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
 
-    const a =
-        document.createElement("a");
+    const a = document.createElement("a");
 
     a.href = url;
     a.download = "pedidos.csv";
@@ -534,26 +479,20 @@ function exportarCSV(){
 
 function borrarPedidos(){
 
-    if(confirm("¿Seguro que desea borrar todos los registros?")){
-
+    if(confirm("¿Desea eliminar todos los registros?")){
         pedidos = [];
         contador = 1;
-
         renderPedidos();
-
     }
 
 }
 
 function pantallaCompleta(id){
 
-    const elemento =
-        document.getElementById(id);
+    const elemento = document.getElementById(id);
 
     if(elemento.requestFullscreen){
-
         elemento.requestFullscreen();
-
     }
 
 }
