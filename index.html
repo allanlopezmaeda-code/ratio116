@@ -438,12 +438,24 @@ function mostrarMensaje(texto, color = "#2e7d32", numeroPedido = null) {
 }
 
 function realizarPedido() {
-    const bebida = document.getElementById("tipoProducto").value;
 
-    if (!bebida) {
-        mostrarMensaje("Seleccione una bebida", "#c62828");
+    if (!bebidaSeleccionada) {
+        mostrarMensaje(
+            "Seleccione una bebida",
+            "#c62828"
+        );
         return;
     }
+
+    const numeroPedido = contador++;
+
+    pedidos.push({
+        numero: numeroPedido,
+        fecha: new Date().toLocaleString(),
+        bebida: bebidaSeleccionada,
+        detalles: {},
+        completado: false
+    });
 
     const numeroPedido = contador++;
     const detalles = {};
