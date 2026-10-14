@@ -173,7 +173,20 @@ select, input {
 let pedidos = [];
 let contador = 1;
     let bebidaSeleccionada = "";
+function seleccionarBebida(bebida, boton){
 
+    bebidaSeleccionada = bebida;
+
+    document
+        .querySelectorAll(".bebida-btn")
+        .forEach(btn =>
+            btn.classList.remove("bebida-seleccionada")
+        );
+
+    boton.classList.add("bebida-seleccionada");
+
+}
+    
 function mostrarOpciones() {
     const bebida = document.getElementById("tipoProducto").value;
     const opciones = document.getElementById("opciones");
