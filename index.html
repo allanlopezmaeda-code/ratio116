@@ -411,7 +411,24 @@ function realizarPedido(){
 
     renderPedidos();
 
-    alert("Pedido registrado correctamente");
+    const mensaje = document.createElement("div");
+
+mensaje.innerHTML = "✅ Pedido registrado correctamente";
+
+mensaje.style.position = "fixed";
+mensaje.style.top = "20px";
+mensaje.style.right = "20px";
+mensaje.style.background = "#2e7d32";
+mensaje.style.color = "white";
+mensaje.style.padding = "15px";
+mensaje.style.borderRadius = "8px";
+mensaje.style.zIndex = "9999";
+
+document.body.appendChild(mensaje);
+
+setTimeout(() => {
+    mensaje.remove();
+}, 2000);;
 }
 
 function renderPedidos(){
