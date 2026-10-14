@@ -433,6 +433,72 @@ function realizarPedido(){
         return;
     }
 
+    const numeroPedido = contador++;
+
+    const detalles = {};
+
+    document.querySelectorAll("#opciones select")
+    .forEach(campo=>{
+        detalles[campo.id]=campo.value;
+    });
+
+    pedidos.push({
+        numero: numeroPedido,
+        fecha: new Date().toLocaleString(),
+        bebida: bebida,
+        detalles: detalles,
+        completado:false
+    });
+
+    renderPedidos();
+
+    document.getElementById("tipoProducto").value = "";
+    document.getElementById("opciones").innerHTML = "";
+
+    const mensaje = document.createElement("div");
+
+    mensaje.style.position = "fixed";
+    mensaje.style.top = "20px";
+    mensaje.style.right = "20px";
+    mensaje.style.background = "#2e7d32";
+    mensaje.style.color = "white";
+    mensaje.style.padding = "25px";
+    mensaje.style.borderRadius = "12px";
+    mensaje.style.boxShadow = "0 6px 15px rgba(0,0,0,.3)";
+    mensaje.style.zIndex = "999999";
+    mensaje.style.fontWeight = "bold";
+    mensaje.style.textAlign = "center";
+    mensaje.style.minWidth = "250px";
+
+    mensaje.innerHTML = `
+        <div style="font-size:22px;">
+            ✅ Pedido Registrado
+        </div>
+
+        <div style="
+            font-size:60px;
+            margin-top:10px;
+            margin-bottom:10px;
+        ">
+            #${numeroPedido}
+        </div>
+
+        <div style="font-size:18px;">
+            Guarde este número
+        </div>
+    `;
+
+    const contenedor =
+        document.fullscreenElement ||
+        document.body;
+
+    contenedor.appendChild(mensaje);
+
+    setTimeout(()=>{
+        mensaje.remove();
+    },5000);
+}
+
     const detalles = {};
 
     document.querySelectorAll("#opciones select")
