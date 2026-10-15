@@ -279,6 +279,8 @@ function mostrarMensaje(texto, color = "#2e7d32", numeroPedido = null) {
     
 function realizarPedido(){
 
+   function realizarPedido(){
+
     if(
         Object.keys(bebidasSeleccionadas)
         .length === 0
@@ -290,27 +292,27 @@ function realizarPedido(){
         );
 
         return;
+    }
+
     const numeroPedido = contador++;
 
     pedidos.push({
 
         numero: numeroPedido,
+
         fecha: new Date().toLocaleString(),
-        bebida: bebidaSeleccionada,
-        detalles: {},
-        completado: false
+
+        bebidas: {...bebidasSeleccionadas},
+
+        completado:false
 
     });
 
     renderPedidos();
 
-    bebidaSeleccionada = "";
+    bebidasSeleccionadas = {};
 
-    document
-        .querySelectorAll(".bebida-btn")
-        .forEach(btn =>
-            btn.classList.remove("bebida-seleccionada")
-        );
+    actualizarBotones();
 
     mostrarMensaje(
         "",
@@ -319,7 +321,6 @@ function realizarPedido(){
     );
 
 }
-
 function traducirBebida(codigo) {
 
     const nombres = {
