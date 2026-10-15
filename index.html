@@ -378,6 +378,45 @@ function traducirBebida(codigo) {
 
 }
 
+function actualizarResumen(){
+
+    const totales = {
+        americano: 0,
+        capuchino: 0,
+        latte: 0,
+        matcha: 0,
+        chocolate: 0
+    };
+
+    pedidos.forEach(pedido => {
+
+        Object.entries(pedido.bebidas)
+        .forEach(([bebida,cantidad]) => {
+
+            if(totales[bebida] !== undefined){
+
+                totales[bebida] += cantidad;
+
+            }
+
+        });
+
+    });
+
+    document.getElementById(
+        "resumenBebidas"
+    ).innerHTML = `
+
+        ☕ Café Americano: <strong>${totales.americano}</strong><br>
+        ☕ Capuchino: <strong>${totales.capuchino}</strong><br>
+        ☕ Latte: <strong>${totales.latte}</strong><br>
+        🍵 Matcha: <strong>${totales.matcha}</strong><br>
+        🍫 Chocolate Caliente: <strong>${totales.chocolate}</strong>
+
+    `;
+
+}
+    
 function renderPedidos() {
     const lista = document.getElementById("listaPedidos");
 
