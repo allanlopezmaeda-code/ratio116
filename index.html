@@ -330,9 +330,11 @@ function mostrarMensaje(texto, color = "#2e7d32", numeroPedido = null) {
 
     renderPedidos();
 
-    bebidasSeleccionadas = {};
+guardarDatos();
 
-    actualizarBotones();
+bebidasSeleccionadas = {};
+
+actualizarBotones();
 
     mostrarMensaje(
         "",
