@@ -375,7 +375,7 @@ function renderPedidos() {
 
     lista.innerHTML = "";
 
-   [...pedidos].reverse().forEach((pedido) => {
+ [...pedidos].reverse().forEach((pedido) => {
 
         lista.innerHTML += `
             <div class="pedido ${pedido.completado ? 'completado' : ''}">
@@ -400,11 +400,11 @@ ${Object.entries(pedido.bebidas)
     <input
         type="checkbox"
         ${pedido.completado ? 'checked' : ''}
-        onchange="togglePedido(${index})">
+        onchange="togglePedido(${pedidos.indexOf(pedido)})">
 
     <button
         class="btn-delete"
-        onclick="eliminarPedido(${index})">
+        onclick="eliminarPedido(${pedidos.indexOf(pedido)})">
         ❌
     </button>
 </div>
