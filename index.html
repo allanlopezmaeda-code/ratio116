@@ -391,9 +391,13 @@ actualizarBotones();
 
 function limpiarSeleccion(){
 
-    bebidasSeleccionadas = {};
+    if(confirm("¿Desea cancelar la selección actual?")){
 
-    actualizarBotones();
+        bebidasSeleccionadas = {};
+
+        actualizarBotones();
+
+    }
 
 }
 
