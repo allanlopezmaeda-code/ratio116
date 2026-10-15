@@ -418,6 +418,13 @@ function actualizarResumen(){
 
     });
 
+const total =
+    totales.americano +
+    totales.capuchino +
+    totales.latte +
+    totales.matcha +
+    totales.chocolate;
+    
     document.getElementById(
         "resumenBebidas"
     ).innerHTML = `
@@ -430,6 +437,13 @@ function actualizarResumen(){
 
     `;
 
+document.getElementById(
+    "totalBebidas"
+).innerHTML = `
+    🥤 TOTAL<br>
+    ${total}
+`;
+    
 }
     
 function renderPedidos() {
