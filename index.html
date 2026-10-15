@@ -375,7 +375,7 @@ function renderPedidos() {
 
     lista.innerHTML = "";
 
-    pedidos.forEach((pedido, index) => {
+   [...pedidos].reverse().forEach((pedido) => {
 
         lista.innerHTML += `
             <div class="pedido ${pedido.completado ? 'completado' : ''}">
