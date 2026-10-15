@@ -354,10 +354,10 @@ function exportarCSV() {
     let csv = "Pedido,Fecha,Bebida,Detalles,Estado\n";
 
     pedidos.forEach(p => {
-        const detalles = Object.values(p.detalles).join(" | ");
 
-        csv += `"${p.numero}","${p.fecha}","${traducirBebida(p.bebida)}","${detalles}","${p.completado ? "Completado" : "Pendiente"}"\n`;
-    });
+    csv += `"${p.numero}","${p.fecha}","${traducirBebida(p.bebida)}","","${p.completado ? "Completado" : "Pendiente"}"\n`;
+
+});
 
     const blob = new Blob([csv], {
         type: "text/csv;charset=utf-8;"
