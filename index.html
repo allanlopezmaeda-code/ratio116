@@ -240,6 +240,18 @@ function realizarPedido() {
         return;
     }
 
+   function realizarPedido() {
+
+    if (!bebidaSeleccionada) {
+
+        mostrarMensaje(
+            "Seleccione una bebida",
+            "#c62828"
+        );
+
+        return;
+    }
+
     const numeroPedido = contador++;
 
     pedidos.push({
@@ -269,6 +281,7 @@ function realizarPedido() {
     );
 
 }
+    function traducirBebida(codigo) {
 
     const numeroPedido = contador++;
 
