@@ -277,9 +277,12 @@ function mostrarMensaje(texto, color = "#2e7d32", numeroPedido = null) {
     }, numeroPedido !== null ? 5000 : 2500);
 }
     
-function realizarPedido() {
+function realizarPedido(){
 
-    if (!bebidaSeleccionada) {
+    if(
+        Object.keys(bebidasSeleccionadas)
+        .length === 0
+    ){
 
         mostrarMensaje(
             "Seleccione una bebida",
@@ -289,6 +292,33 @@ function realizarPedido() {
         return;
     }
 
+    const numeroPedido = contador++;
+
+    pedidos.push({
+
+        numero: numeroPedido,
+
+        fecha: new Date().toLocaleString(),
+
+        bebidas: {...bebidasSeleccionadas},
+
+        completado:false
+
+    });
+
+    renderPedidos();
+
+    bebidasSeleccionadas = {};
+
+    actualizarBotones();
+
+    mostrarMensaje(
+        "",
+        "#2e7d32",
+        numeroPedido
+    );
+
+}
     const numeroPedido = contador++;
 
     pedidos.push({
