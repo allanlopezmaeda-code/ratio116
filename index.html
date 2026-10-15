@@ -194,6 +194,21 @@ let contador =
     parseInt(
         localStorage.getItem("contador")
     ) || 1;
+
+function guardarDatos(){
+
+    localStorage.setItem(
+        "pedidos",
+        JSON.stringify(pedidos)
+    );
+
+    localStorage.setItem(
+        "contador",
+        contador
+    );
+
+}
+    
 let bebidasSeleccionadas = {};
 
 function seleccionarBebida(bebida, boton){
