@@ -390,10 +390,19 @@ ${Object.entries(pedido.bebidas)
 <small>${pedido.fecha}</small>
                 </div>
 
-                <input
-                    type="checkbox"
-                    ${pedido.completado ? 'checked' : ''}
-                    onchange="togglePedido(${index})">
+<div>
+    <input
+        type="checkbox"
+        ${pedido.completado ? 'checked' : ''}
+        onchange="togglePedido(${index})">
+
+    <button
+        class="btn-delete"
+        onclick="eliminarPedido(${index})">
+        ❌
+    </button>
+</div>
+               
             </div>
         `;
     });
