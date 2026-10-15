@@ -262,42 +262,16 @@ function realizarPedido() {
 }
     function traducirBebida(codigo) {
 
-    const numeroPedido = contador++;
+    const nombres = {
+        americano: "Café Americano",
+        capuchino: "Capuchino",
+        latte: "Latte",
+        matcha: "Matcha",
+        chocolate: "Chocolate Caliente"
+    };
 
-    pedidos.push({
-        numero: numeroPedido,
-        fecha: new Date().toLocaleString(),
-        bebida: bebidaSeleccionada,
-        detalles: {},
-        completado: false
-    });
+    return nombres[codigo] || codigo;
 
-    const numeroPedido = contador++;
-    const detalles = {};
-
-    document.querySelectorAll("#opciones select").forEach(campo => {
-        detalles[campo.id] = campo.value;
-    });
-
-    pedidos.push({
-        numero: numeroPedido,
-        fecha: new Date().toLocaleString(),
-        bebida: bebida,
-        detalles: detalles,
-        completado: false
-    });
-
-    renderPedidos();
-
-  bebidaSeleccionada = "";
-
-document
-.querySelectorAll(".bebida-btn")
-.forEach(btn =>
-    btn.classList.remove("bebida-seleccionada")
-);
-
-    mostrarMensaje("", "#2e7d32", numeroPedido);
 }
 
 function traducirBebida(codigo) {
