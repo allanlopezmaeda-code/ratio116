@@ -177,6 +177,44 @@ function seleccionarBebida(bebida, boton){
     actualizarBotones();
 
 }
+
+function actualizarBotones(){
+
+    document
+    .querySelectorAll(".bebida-btn")
+    .forEach(btn=>{
+
+        const bebida =
+            btn.dataset.bebida;
+
+        const cantidad =
+            bebidasSeleccionadas[bebida] || 0;
+
+        btn.classList.remove(
+            "bebida-seleccionada"
+        );
+
+        let textoOriginal =
+            btn.dataset.nombre;
+
+        if(cantidad > 0){
+
+            btn.classList.add(
+                "bebida-seleccionada"
+            );
+
+            btn.innerHTML =
+                `${textoOriginal}<br><strong>${cantidad}x</strong>`;
+
+        }else{
+
+            btn.innerHTML = textoOriginal;
+
+        }
+
+    });
+
+}
     
 function mostrarMensaje(texto, color = "#2e7d32", numeroPedido = null) {
     const mensaje = document.createElement("div");
