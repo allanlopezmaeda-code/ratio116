@@ -377,9 +377,15 @@ function togglePedido(index) {
 function exportarCSV() {
     let csv = "Pedido,Fecha,Bebida,Detalles,Estado\n";
 
-    pedidos.forEach(p => {
+   pedidos.forEach(p => {
 
-    csv += `"${p.numero}","${p.fecha}","${traducirBebida(p.bebida)}","","${p.completado ? "Completado" : "Pendiente"}"\n`;
+    const bebidas = Object.entries(p.bebidas)
+        .map(([bebida,cantidad]) =>
+            `${cantidad}x ${traducirBebida(bebida)}`
+        )
+        .join(" | ");
+
+    csv += `"${p.numero}","${p.fecha}","${bebidas}","","${p.completado ? "Completado" : "Pendiente"}"\n`;
 
 });
 
