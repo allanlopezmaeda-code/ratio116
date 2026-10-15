@@ -430,8 +430,10 @@ function exportarCSV() {
 function borrarPedidos() {
     if (confirm("¿Desea eliminar todos los registros?")) {
         pedidos = [];
-        contador = 1;
-        renderPedidos();
+contador = 1;
+
+guardarDatos();
+renderPedidos();
     }
 }
 
