@@ -419,6 +419,25 @@ function togglePedido(index) {
 
 }
 
+function eliminarPedido(index){
+
+    if(
+        confirm(
+            `¿Eliminar el pedido #${pedidos[index].numero}?`
+        )
+    ){
+
+        pedidos.splice(index, 1);
+
+        guardarDatos();
+
+        renderPedidos();
+
+    }
+
+}
+
+    
 function exportarCSV() {
     let csv = "Pedido,Fecha,Bebida,Detalles,Estado\n";
 
