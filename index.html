@@ -290,35 +290,6 @@ function realizarPedido(){
         );
 
         return;
-    }
-
-    const numeroPedido = contador++;
-
-    pedidos.push({
-
-        numero: numeroPedido,
-
-        fecha: new Date().toLocaleString(),
-
-        bebidas: {...bebidasSeleccionadas},
-
-        completado:false
-
-    });
-
-    renderPedidos();
-
-    bebidasSeleccionadas = {};
-
-    actualizarBotones();
-
-    mostrarMensaje(
-        "",
-        "#2e7d32",
-        numeroPedido
-    );
-
-}
     const numeroPedido = contador++;
 
     pedidos.push({
