@@ -185,8 +185,15 @@ data-nombre="🍫 chocolate Caliente"
 </div>
 
 <script>
-let pedidos = [];
-let contador = 1;
+let pedidos =
+    JSON.parse(
+        localStorage.getItem("pedidos")
+    ) || [];
+
+let contador =
+    parseInt(
+        localStorage.getItem("contador")
+    ) || 1;
 let bebidasSeleccionadas = {};
 
 function seleccionarBebida(bebida, boton){
