@@ -171,15 +171,10 @@ let bebidasSeleccionadas = {};
 
 function seleccionarBebida(bebida, boton){
 
-    bebidaSeleccionada = bebida;
+    bebidasSeleccionadas[bebida] =
+        (bebidasSeleccionadas[bebida] || 0) + 1;
 
-    document
-        .querySelectorAll(".bebida-btn")
-        .forEach(btn =>
-            btn.classList.remove("bebida-seleccionada")
-        );
-
-    boton.classList.add("bebida-seleccionada");
+    actualizarBotones();
 
 }
     
