@@ -393,8 +393,14 @@ ${Object.entries(pedido.bebidas)
 }
 
 function togglePedido(index) {
-    pedidos[index].completado = !pedidos[index].completado;
+
+    pedidos[index].completado =
+        !pedidos[index].completado;
+
+    guardarDatos();
+
     renderPedidos();
+
 }
 
 function exportarCSV() {
