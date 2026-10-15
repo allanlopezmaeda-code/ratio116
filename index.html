@@ -378,7 +378,12 @@ function renderPedidos() {
 </strong>
 <br>
 <strong>
-    ${traducirBebida(pedido.bebida)}
+${Object.entries(pedido.bebidas)
+.map(([bebida,cantidad]) =>
+    `${cantidad}x ${traducirBebida(bebida)}`
+)
+.join("<br>")}
+  
 </strong>
 <br>
 <small>${pedido.fecha}</small>
